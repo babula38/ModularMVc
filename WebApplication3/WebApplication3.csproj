@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Infrastructure\Infrastructure.csproj" />
+    <ProjectReference Include="..\Infrastructure\Infrastructure.csproj" />
     <ProjectReference Include="..\Module.mvc\Module.mvc.csproj" />
     <ProjectReference Include="..\Module.One\Module.One.csproj" />
     <ProjectReference Include="..\WebApplication1\WebApplication1.csproj" />
