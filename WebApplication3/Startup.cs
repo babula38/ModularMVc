@@ -8,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
+using Module.WithExtensionStatic.Areas.Admin.Controllers;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -46,13 +47,26 @@ namespace WebApplication3
                                 (System.Activator.CreateInstance(module) as IModule)
                                     .ConfigureServices(services);
                             });
+            System.Runtime.Loader.AssemblyLoadContext.Default
+                            .LoadFromAssemblyName(new AssemblyName("Module.WithExtensionStatic"))
+                            .GetTypes()
+                            .Where(type => typeof(IModule).IsAssignableFrom(type))
+                            .ForEach(module =>
+                            {
+                                (System.Activator.CreateInstance(module) as IModule)
+                                    .ConfigureServices(services);
+                            });
             //var exter = System.Runtime.Loader.AssemblyLoadContext.Default
             //                  .LoadFromAssemblyName(new AssemblyName("Module.mvc"));
 
-            var assembly = typeof(Module.mvc.Areas.Products.Controllers.HomeController).Assembly;
+            var assembly = typeof(HomeController).Assembly;
 
             //services.AddModules();
             services.AddControllersWithViews()
+                    .AddRazorPagesOptions(option =>
+                    {
+                        //option.Conventions.all
+                    })
                 .AddApplicationPart(assembly)
                 .AddRazorRuntimeCompilation();
 

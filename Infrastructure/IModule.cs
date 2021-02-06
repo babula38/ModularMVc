@@ -5,6 +5,6 @@ namespace Infrastructure
 {
     public interface IModule
     {
-        void ConfigureServices(IServiceCollection collection);
+        void ConfigureServices(IServiceCollection services);
     }
 }
